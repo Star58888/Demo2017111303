@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         StudentDAOTest1 t = new StudentDAOTest1();
         t.add(new Student("Bob" , "123" , "aabb"));
         t.add(new Student("Mary", "234", "ccdd"));
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         Student editStudent =mylist.get(0);
         editStudent.tel = "987";
+        t.updata(editStudent);
 
         ArrayList<Student> mylist1 = t.getData();
         for (Student s: mylist1)
