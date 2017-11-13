@@ -1,0 +1,23 @@
+package com.star.demo2017111303.Data;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Star on 2017/11/13.
+ */
+
+public class StudentDAOTest1 {
+    ArrayList<Student> data = new ArrayList<>();
+    int MaxID = 1;
+    public void add(Student s)
+    {
+        s.id = MaxID;
+        data.add(s);
+        MaxID++;
+    }
+
+    public ArrayList<Student> getData()
+    {
+        return data;
+    }
+}
