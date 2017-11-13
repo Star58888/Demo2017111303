@@ -1,9 +1,16 @@
 package com.star.demo2017111303;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SimpleExpandableListAdapter;
 
+import com.star.demo2017111303.Data.AddActivity;
 import com.star.demo2017111303.Data.Student;
 import com.star.demo2017111303.Data.StudentDAOMemoryImpl;
 import com.star.demo2017111303.Data.StudentDAOTest1;
@@ -11,11 +18,20 @@ import com.star.demo2017111303.Data.StudentDAOTest1;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
+    RecyclerView  mRecyclerView;
+    RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
+    RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mRecyclerView = (RecyclerView)findViewById(R.id.myRecyclerView);
+        mRecyclerView.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(MainActivity.this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        t.add(new Student("Bob", "123", "123"));
+        t.add(new Student("Mary", "123", "123"));
 
 
 
@@ -39,5 +55,25 @@ public class MainActivity extends AppCompatActivity {
 //        {
 //            Log.d("DATAS", "update:" + s.toString());
 //        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        mAdapter = new MyAdapter(MainActivity.this , t.getData());
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("ADD");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(MainActivity.this , AddActivity.class);
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
     }
 }
