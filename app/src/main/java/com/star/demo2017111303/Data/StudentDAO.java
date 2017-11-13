@@ -6,6 +6,6 @@ package com.star.demo2017111303.Data;
 
 public interface StudentDAO {
     void add(Student s);
-    String[] getData();
+    Student[] getData();
     void updata(Student s);
 }
