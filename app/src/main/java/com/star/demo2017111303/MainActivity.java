@@ -24,5 +24,14 @@ public class MainActivity extends AppCompatActivity {
         {
             Log.d("DATAS", s.toString());
         }
+
+        Student editStudent =mylist.get(0);
+        editStudent.tel = "987";
+
+        ArrayList<Student> mylist1 = t.getData();
+        for (Student s: mylist1)
+        {
+            Log.d("DATAS", "updata: " + s.toString());
+        }
     }
 }
