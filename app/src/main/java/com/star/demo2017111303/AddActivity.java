@@ -1,10 +1,11 @@
-package com.star.demo2017111303.Data;
+package com.star.demo2017111303;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.star.demo2017111303.Data.Student;
 import com.star.demo2017111303.MainActivity;
 import com.star.demo2017111303.R;
 
