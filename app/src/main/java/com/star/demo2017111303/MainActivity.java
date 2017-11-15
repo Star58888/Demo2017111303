@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,8 +67,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         View v = rv.findChildViewUnder(e.getX(), e.getY());
+        Log.d("Touch", "onInterceptTouchEvent");
         if ( mGD.onTouchEvent(e))
         {
+            Log.d("Touch", "Single Tap up");
+
             int position = rv.getChildLayoutPosition(v);
             // Toast.makeText(MainActivity.this, "posi:" + position, Toast.LENGTH_SHORT).show();
             if (position >= 0) {
