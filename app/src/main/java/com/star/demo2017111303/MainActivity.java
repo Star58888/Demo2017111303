@@ -34,13 +34,17 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
         mRecyclerView.setLayoutManager(mLayoutManager);
         t.add(new Student("Bob", "123", "123"));
         t.add(new Student("Mary", "123", "123"));
-        mGD = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+        mGD = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener()
+        {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
-        });
+
+        }
+        );
         mRecyclerView.addOnItemTouchListener(this);
+
     }
 
     @Override
@@ -58,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(MainActivity.this, AddActivity.class);
-        startActivity(intent);
+        Intent it = new Intent(MainActivity.this, AddActivity.class);
+        startActivity(it);
         return super.onOptionsItemSelected(item);
     }
 
@@ -67,18 +71,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         View v = rv.findChildViewUnder(e.getX(), e.getY());
         Log.d("Touch", "onInterceptTouchEvent");
-        if ( mGD.onTouchEvent(e))
+        if (mGD.onTouchEvent(e))
         {
             Log.d("Touch", "Single Tap up");
-
             int position = rv.getChildLayoutPosition(v);
             // Toast.makeText(MainActivity.this, "posi:" + position, Toast.LENGTH_SHORT).show();
-            if (position >= 0) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("id", t.getData()[position].id);
-                startActivity(intent);
-             }
+            if (position >= 0)
+            {
+                Intent it = new Intent(MainActivity.this, DetailActivity.class);
+                it.putExtra("id", t.getData()[position].id);
+                startActivity(it);
+            }
         }
+
         return false;
     }
 
