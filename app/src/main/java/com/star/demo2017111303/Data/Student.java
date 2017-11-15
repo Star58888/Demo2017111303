@@ -5,7 +5,7 @@ package com.star.demo2017111303.Data;
  */
 
 public class Student {
-    int id;
+    public  int id;
     public String name;
     public String tel;
     public String addr;

@@ -2,61 +2,51 @@ package com.star.demo2017111303;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.gesture.Gesture;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.star.demo2017111303.Data.Student;
 import com.star.demo2017111303.Data.StudentDAOMemoryImpl;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
     public static StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
-    RecyclerView  mRecyclerView;
+    RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
+    GestureDetector mGD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = (RecyclerView)findViewById(R.id.myRecyclerView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         t.add(new Student("Bob", "123", "123"));
         t.add(new Student("Mary", "123", "123"));
-
-
-
-
-//        StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
-//        t.add(new Student("Bob", "123", "aabb"));
-//        t.add(new Student("Mary", "234", "ccdd"));
-//
-//        Student[] mylist = t.getData();
-//        for (Student s: mylist)
-//        {
-//            Log.d("DATAS", s.toString());
-//        }
-//
-//        Student editStudent = mylist[0];
-//        editStudent.tel = "987";
-//        t.updata(editStudent);
-//
-//        Student[] mylist1 = t.getData();
-//        for (Student s: mylist1)
-//        {
-//            Log.d("DATAS", "update:" + s.toString());
-//        }
+        mGD = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+        mRecyclerView.addOnItemTouchListener(this);
     }
 
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onResume() {
         super.onPostResume();
-        mAdapter = new MyAdapter(MainActivity.this , t.getData());
+        mAdapter = new MyAdapter(MainActivity.this, t.getData());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -68,8 +58,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(MainActivity.this , AddActivity.class);
+        Intent intent = new Intent(MainActivity.this, AddActivity.class);
         startActivity(intent);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        View v = rv.findChildViewUnder(e.getX(), e.getY());
+        if ( mGD.onTouchEvent(e))
+        {
+            int position = rv.getChildLayoutPosition(v);
+            // Toast.makeText(MainActivity.this, "posi:" + position, Toast.LENGTH_SHORT).show();
+            if (position >= 0) {
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("id", t.getData()[position].id);
+                startActivity(intent);
+             }
+        }
+        return false;
+    }
+
+    @Override
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
     }
 }
