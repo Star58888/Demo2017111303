@@ -2,7 +2,16 @@ package com.star.demo2017111303.Data;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +20,46 @@ import java.util.ArrayList;
 
 public class StudentDAOFileImp1 implements StudentDAO{
     ArrayList<Student> data = new ArrayList<>();
-    Context context;   //getFilesDir() : StudentDAO自己建的類別沒,所以傳Context進來,才有
+    Context context;   //getFilesDir() : StudentDAO自己建的類別沒,所以傳Context進來,
     String DATA_FILE;
 
     public StudentDAOFileImp1(Context context)
     {
         this.context = context;
         DATA_FILE = context.getFilesDir().getAbsolutePath() + File.separator + "mydata.json";
+        data = new ArrayList<>();
+        loadData();
+    }
+    private void saveData()
+    {
+        try {
+            FileWriter fw = new FileWriter(DATA_FILE);
+            Gson gson = new Gson();
+            String str =gson.toJson(data);
+            fw.write(str);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private void loadData()
+    {
+        try {
+            FileReader fr = new FileReader(DATA_FILE);
+            BufferedReader br = new BufferedReader(fr);
+            String str =br.readLine();
+            br.close();
+            fr.close();
+            Gson gson = new Gson();
+            Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+            data = gson.fromJson(str ,  listType);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void add(Student s) {
 
