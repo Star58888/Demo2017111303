@@ -33,6 +33,44 @@ public class StudentDAOMemoryImpl implements StudentDAO {
             }
         }
     }
+
+    @Override
+    public void delete(Student s)  //delete forech不可對list長短做更動
+    {
+        for (int i = data.size() -1 ; i > 0; i--)
+        {
+            if(data.get(i).id == s.id)
+            {
+                data.remove(i);
+                break;
+            }
+        }
+    }
+    @Override
+    public  Student[] searchByName(String name) {
+       ArrayList<Student> tmpLisit = new ArrayList<>();
+        for (Student tmp : data)
+        {
+            if (tmp.name.equals(name))
+            {
+                tmpLisit.add(tmp);
+            }
+        }
+        return tmpLisit.toArray(new Student[tmpLisit.size()]);
+    }
+
+    @Override
+    public Student getOneStudent(int id) {
+        for (Student tmp :data)
+        {
+            if (tmp.id == id)
+            {
+                return tmp;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void clear() {
         data.clear();

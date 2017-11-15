@@ -53,7 +53,23 @@ public class MyDAOTest {
         Student[] stus = dao.getData();
         Student s = stus[1];
         s.addr = "XYZ";
+        dao.updata(s);
         Student[] check = dao.getData();
         assertEquals(check[1].addr, "XYZ");
     }
+    @Test
+    public void TestMemoryDAO4Delete()
+    {
+        StudentDAOMemoryImpl dao = new StudentDAOMemoryImpl();
+        dao.clear();
+        dao.add(new Student("AA", "11", "aabb"));
+        dao.add(new Student("BB", "22", "aabb"));
+        dao.add(new Student("CC", "33", "aabb"));
+        Student[] stus = dao.getData();
+        Student s = stus[1];
+        dao.delete(s);
+        Student[] check = dao.getData();
+        assertEquals(2, check.length);
+    }
 }
+

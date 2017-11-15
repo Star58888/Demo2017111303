@@ -8,5 +8,8 @@ public interface StudentDAO {
     void add(Student s);
     Student[] getData();
     void updata(Student s);
+    void delete(Student s);
     void clear();
+    Student getOneStudent(int id);
+    Student[] searchByName(String name);
 }
