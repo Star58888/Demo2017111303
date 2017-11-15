@@ -33,4 +33,8 @@ public class StudentDAOMemoryImpl implements StudentDAO {
             }
         }
     }
+    @Override
+    public void clear() {
+        data.clear();
+    }
 }
