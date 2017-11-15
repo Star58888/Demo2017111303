@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class StudentDAOMemoryImpl implements StudentDAO {
     ArrayList<Student> data = new ArrayList();
     int MaxID = 1;
+
     @Override
     public void add(Student s) {
         s.id = MaxID;
@@ -23,10 +24,8 @@ public class StudentDAOMemoryImpl implements StudentDAO {
 
     @Override
     public void updata(Student s) {
-        for (Student tmp : data)
-        {
-            if (tmp.id == s.id)
-            {
+        for (Student tmp : data) {
+            if (tmp.id == s.id) {
                 tmp.name = s.name;
                 tmp.tel = s.tel;
                 tmp.addr = s.addr;
@@ -37,22 +36,24 @@ public class StudentDAOMemoryImpl implements StudentDAO {
     @Override
     public void delete(Student s)  //delete forech不可對list長短做更動
     {
-        for (int i = data.size() -1 ; i > 0; i--)
-        {
-            if(data.get(i).id == s.id)
-            {
+        for (int i = data.size() - 1; i >= 0; i--) {
+            if (data.get(i).id == s.id) {
                 data.remove(i);
                 break;
             }
         }
     }
+
     @Override
-    public  Student[] searchByName(String name) {
-       ArrayList<Student> tmpLisit = new ArrayList<>();
-        for (Student tmp : data)
-        {
-            if (tmp.name.equals(name))
-            {
+    public void clear() {
+        data.clear();
+    }
+
+    @Override
+    public Student[] searchByName(String name) {
+        ArrayList<Student> tmpLisit = new ArrayList<>();
+        for (Student tmp : data) {
+            if (tmp.name.equals(name)) {
                 tmpLisit.add(tmp);
             }
         }
@@ -61,18 +62,12 @@ public class StudentDAOMemoryImpl implements StudentDAO {
 
     @Override
     public Student getOneStudent(int id) {
-        for (Student tmp :data)
-        {
-            if (tmp.id == id)
-            {
+        for (Student tmp : data) {
+            if (tmp.id == id) {
                 return tmp;
             }
         }
         return null;
     }
-
-    @Override
-    public void clear() {
-        data.clear();
-    }
 }
+

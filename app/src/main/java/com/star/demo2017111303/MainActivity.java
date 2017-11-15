@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
         mRecyclerView.addOnItemTouchListener(this);
     }
 
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onResume() {
-        super.onPostResume();
+        super.onResume();
         mAdapter = new MyAdapter(MainActivity.this, t.getData());
         mRecyclerView.setAdapter(mAdapter);
     }
