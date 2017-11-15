@@ -15,10 +15,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.star.demo2017111303.Data.Student;
+import com.star.demo2017111303.Data.StudentDAOFileImp1;
 import com.star.demo2017111303.Data.StudentDAOMemoryImpl;
 
 public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
-    public static StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
+//    public static StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
+    public static StudentDAOFileImp1 t;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -28,12 +30,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        t = new StudentDAOFileImp1(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        t.add(new Student("Bob", "123", "123"));
-        t.add(new Student("Mary", "123", "123"));
+//        t.add(new Student("Bob", "123", "123"));
+//        t.add(new Student("Mary", "123", "123"));
         mGD = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener()
         {
             @Override
