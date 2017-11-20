@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Demo2017111303</string>
+    <string name="app_name">DAO測試</string>
     <string name="delete_confirm">確認刪除本筆資料??</string>
     <string name="OK">確定</string>
     <string name="cancel">取消</string>

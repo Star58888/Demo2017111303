@@ -1,8 +1,6 @@
 package com.star.demo2017111303;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.gesture.Gesture;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,13 +12,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.star.demo2017111303.Data.Student;
-import com.star.demo2017111303.Data.StudentDAOFileImp1;
-import com.star.demo2017111303.Data.StudentDAOMemoryImpl;
+import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
 public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
 //    public static StudentDAOMemoryImpl t = new StudentDAOMemoryImpl();
-    public static StudentDAOFileImp1 t;
+    public static StudentDAOFileImpl t;
     RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -30,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        t = new StudentDAOFileImp1(this);
+        t = new StudentDAOFileImpl(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);

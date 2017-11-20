@@ -18,24 +18,26 @@ import java.util.ArrayList;
  * Created by Star on 2017/11/15.
  */
 
-public class StudentDAOFileImp1 implements StudentDAO{
-    ArrayList<Student> data = new ArrayList<>();
+public class StudentDAOFileImpl implements StudentDAO{
+    ArrayList<Student> data ;
     Context context;   //getFilesDir() : StudentDAO自己建的類別沒,所以傳Context進來,
     String DATA_FILE;
     int MaxID;
-    public StudentDAOFileImp1(Context context)
+
+    public StudentDAOFileImpl(Context context)
     {
         this.context = context;
         DATA_FILE = context.getFilesDir().getAbsolutePath() + File.separator + "mydata.json";
         data = new ArrayList<>();
         loadData();
     }
+
     private void saveData()
     {
         try {
             FileWriter fw = new FileWriter(DATA_FILE);
             Gson gson = new Gson();
-            String str =gson.toJson(data);
+            String str = gson.toJson(data);
             fw.write(str);
             fw.close();
         } catch (IOException e) {
@@ -48,7 +50,7 @@ public class StudentDAOFileImp1 implements StudentDAO{
         try {
             FileReader fr = new FileReader(DATA_FILE);
             BufferedReader br = new BufferedReader(fr);
-            String str =br.readLine();
+            String str = br.readLine();
             br.close();
             fr.close();
             System.out.println("string:" + str);
@@ -75,11 +77,16 @@ public class StudentDAOFileImp1 implements StudentDAO{
                 MaxID = s.id;
             }
         }
-        MaxID ++;
+        MaxID += 1;
+
+
     }
+
     @Override
     public void add(Student s) {
+        s.id = MaxID;
         data.add(s);
+        MaxID++;
         saveData();
     }
 
@@ -104,9 +111,9 @@ public class StudentDAOFileImp1 implements StudentDAO{
 
     @Override
     public void delete(Student s) {
-        for (int i = data.size() -1; i >= 0 ; i--)
+        for (int i=data.size()-1;i>=0;i--)
         {
-            if (data.get(i).id == s.id )
+            if (data.get(i).id == s.id)
             {
                 data.remove(i);
                 break;
@@ -123,11 +130,26 @@ public class StudentDAOFileImp1 implements StudentDAO{
 
     @Override
     public Student getOneStudent(int id) {
+        for (Student tmp : data)
+        {
+            if (tmp.id == id)
+            {
+                return tmp;
+            }
+        }
         return null;
     }
 
     @Override
     public Student[] searchByName(String name) {
-        return new Student[0];
+        ArrayList<Student> tmpList = new ArrayList<>();
+        for (Student tmp : data)
+        {
+            if (tmp.name.equals(name))
+            {
+                tmpList.add(tmp);
+            }
+        }
+        return tmpList.toArray(new Student[tmpList.size()]);
     }
 }

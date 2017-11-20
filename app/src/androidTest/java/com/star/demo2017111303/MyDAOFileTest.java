@@ -5,7 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.star.demo2017111303.Data.Student;
-import com.star.demo2017111303.Data.StudentDAOFileImp1;
+import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-        StudentDAOFileImp1 dao = new StudentDAOFileImp1(appContext);
+        StudentDAOFileImpl dao = new StudentDAOFileImpl(appContext);
         dao.clear();
         dao.add(new Student("AA", "11", "aabb"));
         dao.clear();
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
     public void TestUpdate1() throws Exception
     {
         Context appContext = InstrumentationRegistry.getTargetContext();
-        StudentDAOFileImp1 dao = new StudentDAOFileImp1(appContext);
+        StudentDAOFileImpl dao = new StudentDAOFileImpl(appContext);
         dao.clear();
         dao.add(new Student("AA", "11", "aabb"));
         dao.add(new Student("BB", "22", "aabb"));
@@ -53,7 +53,7 @@ import static org.junit.Assert.assertEquals;
     @Test
     public void TestDelete1() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
-        StudentDAOFileImp1 dao = new StudentDAOFileImp1(appContext);
+        StudentDAOFileImpl dao = new StudentDAOFileImpl(appContext);
         dao.clear();
         dao.add(new Student("AA", "11", "aabb"));
         dao.add(new Student("BB", "22", "aabb"));
@@ -64,4 +64,19 @@ import static org.junit.Assert.assertEquals;
         Student[] check = dao.getData();
         assertEquals(2 , check.length);
     }
+
+    @Test
+    public void TestGetOne1() throws Exception {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        StudentDAOFileImpl dao = new StudentDAOFileImpl(appContext);
+        dao.clear();
+        dao.add(new Student("AA", "11", "aabb"));
+        dao.add(new Student("BB", "22", "aabb"));
+        dao.add(new Student("CC", "33", "aabb"));
+        Student[] check = dao.getData();
+        Student s = dao.getOneStudent(check[2].id);
+        assertEquals(s.tel, "33");
+    }
+
 }
