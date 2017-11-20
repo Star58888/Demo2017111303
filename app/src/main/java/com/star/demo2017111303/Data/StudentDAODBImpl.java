@@ -48,12 +48,20 @@ public class StudentDAODBImpl implements StudentDAO {
 
     @Override
     public void update(Student s) {
-
+        ContentValues cv = new ContentValues();
+        cv.put("name" , s.name);
+        cv.put("tel" , s.tel);
+        cv.put("addr" , s.addr);
+        db.update("students", cv, "_id=?", new String[] {String.valueOf(s.id)});
+//        String where = "_id" + "=" + s.id;
+//        db.update("students" ,cv , where,null ) ;
     }
 
     @Override
     public void delete(Student s) {
-
+        db.delete("students", "_id=?", new String[] {String.valueOf(s.id)});
+//        String where = "_id" + "=" + s.id;
+//        db.delete("students" ,where ,null);
     }
 
     @Override
@@ -63,11 +71,20 @@ public class StudentDAODBImpl implements StudentDAO {
 
     @Override
     public Student getOneStudent(int id) {
+        Cursor c = db.query("students" , new String[] {"_id" ,"name" ,"tel" ,"addr"} , "_id=?", new String[] {String.valueOf(id)}, null, null, null);
+//        String where = "_id" + "=" + id;
+//        Cursor c = db.query("students" ,null ,where ,null ,null ,null ,null ,null);
+        if (c.moveToFirst())
+        {
+            Student s = new Student(c.getInt(0) ,c.getString(1) ,c.getString(2) ,c.getString(3));
+            return s;
+        }
         return null;
     }
 
     @Override
     public Student[] searchByName(String name) {
+
         return new Student[0];
     }
 }
