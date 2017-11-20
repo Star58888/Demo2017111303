@@ -5,5 +5,5 @@ package com.star.demo2017111303.Data;
  */
 //列舉 一目了然你要換甚麼東西
 public enum DAOType {
-    MEMORY, FILE
+    MEMORY, FILE , DB
 }

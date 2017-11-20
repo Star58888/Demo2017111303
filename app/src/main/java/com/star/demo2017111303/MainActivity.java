@@ -19,7 +19,7 @@ import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
 public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
     public static StudentDAO t;
-    final DAOType type = DAOType.FILE;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
+    final DAOType type = DAOType.DB;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
