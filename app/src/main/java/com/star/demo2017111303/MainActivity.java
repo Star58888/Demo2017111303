@@ -12,13 +12,15 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.star.demo2017111303.Data.DAOType;
 import com.star.demo2017111303.Data.StudentDAO;
 import com.star.demo2017111303.Data.StudentDAOFactory;
 import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
 public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
-
     public static StudentDAO t;
+    final DAOType type = DAOType.FILE;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
+
     RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -28,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        t = StudentDAOFactory.getStudentDAO(2 , this);   //工廠模式，可切換(1)StudentDAOMemoryImpl()及(2)StudentDAOFileImpl()
+        t = StudentDAOFactory.getStudentDAO(type , this);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
