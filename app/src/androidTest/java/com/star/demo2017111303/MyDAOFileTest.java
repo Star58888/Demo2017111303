@@ -50,4 +50,18 @@ import static org.junit.Assert.assertEquals;
         assertEquals(stus2[1].name , "TT");
     }
 
+    @Test
+    public void TestDelete1() throws Exception {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        StudentDAOFileImp1 dao = new StudentDAOFileImp1(appContext);
+        dao.clear();
+        dao.add(new Student("AA", "11", "aabb"));
+        dao.add(new Student("BB", "22", "aabb"));
+        dao.add(new Student("CC", "33", "aabb"));
+        Student[] stus = dao.getData();
+        Student s = stus[1];
+        dao.delete(s);
+        Student[] check = dao.getData();
+        assertEquals(2 , check.length);
+    }
 }
