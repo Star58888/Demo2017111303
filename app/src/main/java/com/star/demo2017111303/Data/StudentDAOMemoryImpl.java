@@ -23,9 +23,12 @@ public class StudentDAOMemoryImpl implements StudentDAO {
     }
 
     @Override
-    public void update(Student s) {
-        for (Student tmp : data) {
-            if (tmp.id == s.id) {
+    public void update(Student s)
+    {
+        for (Student tmp : data)
+        {
+            if (tmp.id == s.id)
+            {
                 tmp.name = s.name;
                 tmp.tel = s.tel;
                 tmp.addr = s.addr;
@@ -36,8 +39,10 @@ public class StudentDAOMemoryImpl implements StudentDAO {
     @Override
     public void delete(Student s)  //delete forech不可對list長短做更動
     {
-        for (int i = data.size() - 1; i >= 0; i--) {
-            if (data.get(i).id == s.id) {
+        for (int i = data.size() - 1; i >= 0; i--)
+        {
+            if (data.get(i).id == s.id)
+            {
                 data.remove(i);
                 break;
             }
@@ -50,14 +55,17 @@ public class StudentDAOMemoryImpl implements StudentDAO {
     }
 
     @Override
-    public Student[] searchByName(String name) {
-        ArrayList<Student> tmpLisit = new ArrayList<>();
-        for (Student tmp : data) {
-            if (tmp.name.equals(name)) {
-                tmpLisit.add(tmp);
+    public Student[] searchByName(String name)
+    {
+        ArrayList<Student> tmpList = new ArrayList<>();
+        for (Student tmp : data)
+        {
+            if (tmp.name.equals(name))
+            {
+                tmpList.add(tmp);
             }
         }
-        return tmpLisit.toArray(new Student[tmpLisit.size()]);
+        return tmpList.toArray(new Student[tmpList.size()]);
     }
 
     @Override

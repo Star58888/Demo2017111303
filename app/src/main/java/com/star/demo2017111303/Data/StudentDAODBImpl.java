@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
@@ -22,6 +21,7 @@ public class StudentDAODBImpl implements StudentDAO {
         helper = new StudentDBHelper(context);
         db = helper.getWritableDatabase();
     }
+
     @Override
     public void add(Student s) {
         ContentValues cv = new ContentValues();
@@ -66,7 +66,7 @@ public class StudentDAODBImpl implements StudentDAO {
 
     @Override
     public void clear() {
-
+        db.delete("students" ,null ,null);
     }
 
     @Override

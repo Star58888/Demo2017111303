@@ -2,18 +2,20 @@ package com.star.demo2017111303;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.star.demo2017111303.Data.Student;
 import com.star.demo2017111303.Data.StudentDAODBImpl;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Star on 2017/11/20.
  */
-
+@RunWith(AndroidJUnit4.class)
 public class MyDAODBTest {
     @Test
     public void useAppContext() throws Exception {
@@ -29,10 +31,9 @@ public class MyDAODBTest {
         assertEquals(stus.length, 2);
 
     }
-
     @Test
-    public void TestUpdate1() throws Exception
-    {
+    public void TestUpdate1() throws Exception {
+        // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         StudentDAODBImpl dao = new StudentDAODBImpl(appContext);
         dao.clear();
@@ -40,16 +41,16 @@ public class MyDAODBTest {
         dao.add(new Student("BB", "22", "aabb"));
         dao.add(new Student("CC", "33", "aabb"));
 
-        Student [] stus = dao.getData();
+        Student[] stus = dao.getData();
         Student s = stus[1];
         s.name = "TT";
-        Student [] stus2 = dao.getData();
-
-        assertEquals(stus2[1].name , "TT");
+        dao.update(s);
+        Student[] stus2 = dao.getData();
+        assertEquals(stus2[1].name, "TT");
     }
-
     @Test
     public void TestDelete1() throws Exception {
+        // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         StudentDAODBImpl dao = new StudentDAODBImpl(appContext);
         dao.clear();
@@ -60,9 +61,8 @@ public class MyDAODBTest {
         Student s = stus[1];
         dao.delete(s);
         Student[] check = dao.getData();
-        assertEquals(2 , check.length);
+        assertEquals(2, check.length);
     }
-
     @Test
     public void TestGetOne1() throws Exception {
         // Context of the app under test.
@@ -73,9 +73,8 @@ public class MyDAODBTest {
         dao.add(new Student("BB", "22", "aabb"));
         dao.add(new Student("CC", "33", "aabb"));
         Student[] check = dao.getData();
-        Student s = dao.getOneStudent(check[2].id);
-        assertEquals(s.tel, "33");
+        Student s = dao.getOneStudent(check[1].id);
+        assertEquals(s.name, "BB");
     }
-
 }
 
