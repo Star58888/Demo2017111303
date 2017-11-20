@@ -5,8 +5,6 @@ import com.star.demo2017111303.Data.StudentDAOMemoryImpl;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -53,7 +51,7 @@ public class MyDAOTest {
         Student[] stus = dao.getData();
         Student s = stus[1];
         s.addr = "XYZ";
-        dao.updata(s);
+        dao.update(s);
         Student[] check = dao.getData();
         assertEquals(check[1].addr, "XYZ");
     }

@@ -31,4 +31,23 @@ import static org.junit.Assert.assertEquals;
         assertEquals(stus.length, 2);
 
     }
+
+    @Test
+    public void TestUpdate1() throws Exception
+    {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        StudentDAOFileImp1 dao = new StudentDAOFileImp1(appContext);
+        dao.clear();
+        dao.add(new Student("AA", "11", "aabb"));
+        dao.add(new Student("BB", "22", "aabb"));
+        dao.add(new Student("CC", "33", "aabb"));
+
+        Student [] stus = dao.getData();
+        Student s = stus[1];
+        s.name = "TT";
+        Student [] stus2 = dao.getData();
+
+        assertEquals(stus2[1].name , "TT");
+    }
+
 }

@@ -22,7 +22,7 @@ public class StudentDAOFileImp1 implements StudentDAO{
     ArrayList<Student> data = new ArrayList<>();
     Context context;   //getFilesDir() : StudentDAO自己建的類別沒,所以傳Context進來,
     String DATA_FILE;
-
+    int MaxID;
     public StudentDAOFileImp1(Context context)
     {
         this.context = context;
@@ -51,14 +51,31 @@ public class StudentDAOFileImp1 implements StudentDAO{
             String str =br.readLine();
             br.close();
             fr.close();
-            Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Student>>() {}.getType();
-            data = gson.fromJson(str ,  listType);
+            System.out.println("string:" + str);
+            if (str.trim().length() > 0)
+            {
+                Gson gson = new Gson();
+                Type listType = new TypeToken<ArrayList<Student>>() {}.getType();
+                data = gson.fromJson(str, listType);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (data.size() > 0)
+        {
+            MaxID = data.get(0).id;
+        }
+        for (Student s : data)
+        {
+            if (MaxID < s.id)
+            {
+                MaxID = s.id;
+            }
+        }
+        MaxID ++;
     }
     @Override
     public void add(Student s) {
@@ -72,13 +89,30 @@ public class StudentDAOFileImp1 implements StudentDAO{
     }
 
     @Override
-    public void updata(Student s) {
-
+    public void update(Student s) {
+        for (Student tmp : data)
+        {
+            if (tmp.id == s.id)
+            {
+                tmp.name = s.name;
+                tmp.tel = s.tel;
+                tmp.addr = s.addr;
+            }
+        }
+        saveData();
     }
 
     @Override
     public void delete(Student s) {
-
+        for (int i = data.size() -1; i >= 0 ; i--)
+        {
+            if (data.get(i).id == s.id )
+            {
+                data.remove(i);
+                break;
+            }
+        }
+        saveData();
     }
 
     @Override

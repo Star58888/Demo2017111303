@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         stu = MainActivity.t.getOneStudent(id);
-        tv2.setText(String.valueOf(stu.id));
+        tv2.setText(String.valueOf(stu.id) );
         tv3.setText(stu.name);
         tv4.setText(stu.tel);
         tv5.setText(stu.addr);

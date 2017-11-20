@@ -21,7 +21,7 @@ public class StudentDAOTest1 {
         return data;
     }
 
-    public void updata (Student s)
+    public void update (Student s)
     {
         for (Student tmp : data)
         {

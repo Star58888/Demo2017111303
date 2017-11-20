@@ -30,7 +30,7 @@ public class EditActivity extends AppCompatActivity {
         stu.name = ed1.getText().toString();
         stu.tel = ed2.getText().toString();
         stu.addr = ed3.getText().toString();
-        MainActivity.t.updata(stu);
+        MainActivity.t.update(stu);
         finish();
     }
     public void clickBack(View v)

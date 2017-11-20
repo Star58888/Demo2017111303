@@ -23,7 +23,7 @@ public class StudentDAOMemoryImpl implements StudentDAO {
     }
 
     @Override
-    public void updata(Student s) {
+    public void update(Student s) {
         for (Student tmp : data) {
             if (tmp.id == s.id) {
                 tmp.name = s.name;
