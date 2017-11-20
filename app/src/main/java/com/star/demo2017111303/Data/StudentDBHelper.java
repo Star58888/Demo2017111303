@@ -9,9 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class StudentDBHelper extends SQLiteOpenHelper {
-
-    public StudentDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    static String FILENAME = "stu";
+    static int version = 1;
+    public StudentDBHelper(Context context)
+    {
+        super(context, FILENAME, null, version);
     }
 
     @Override
