@@ -105,21 +105,46 @@ public class StudentDAOCloudImpl implements StudentDAO {
 
     @Override
     public void update(Student s) {
-
+        for (Student tmp : data)
+        {
+            if (tmp.id == s.id)
+            {
+                tmp.name = s.name;
+                tmp.tel = s.tel;
+                tmp.addr = s.addr;
+            }
+        }
+        saveData();
     }
 
     @Override
     public void delete(Student s) {
-
+        for (int i=data.size()-1;i>=0;i--)
+        {
+            if (data.get(i).id == s.id)
+            {
+                data.remove(i);
+                break;
+            }
+        }
+        saveData();
     }
 
     @Override
     public void clear() {
-
+        data.clear();
+        saveData();
     }
 
     @Override
     public Student getOneStudent(int id) {
+        for (Student tmp : data)
+        {
+            if (tmp.id == id)
+            {
+                return tmp;
+            }
+        }
         return null;
     }
 
