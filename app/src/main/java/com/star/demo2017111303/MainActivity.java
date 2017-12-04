@@ -19,25 +19,25 @@ import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
 public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
     public static StudentDAO t;
-    final DAOType type = DAOType.DB;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
+    final DAOType type = DAOType.CLOUD;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
 
     RecyclerView mRecyclerView;
     RecyclerView.Adapter<MyAdapter.ViewHolder> mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     GestureDetector mGD;
+    final String TAG = "CloudImpl";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        t = StudentDAOFactory.getStudentDAO(type , this);
-
+        t = StudentDAOFactory.getStudentDAO(type, this);
         mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-//        t.add(new Student("Bob", "123", "123"));
-//        t.add(new Student("Mary", "123", "123"));
+        // t.add(new Student("Bob", "123", "123"));
+        // t.add(new Student("Mary", "123", "123"));
         mGD = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener()
         {
             @Override
@@ -49,13 +49,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
         );
         mRecyclerView.addOnItemTouchListener(this);
 
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume, before set Adapter");
         mAdapter = new MyAdapter(MainActivity.this, t.getData());
         mRecyclerView.setAdapter(mAdapter);
+        Log.d(TAG, "onResume, after set Adapter");
     }
 
     @Override
