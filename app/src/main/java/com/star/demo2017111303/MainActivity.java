@@ -13,11 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.star.demo2017111303.Data.DAOType;
+import com.star.demo2017111303.Data.OnCloudReceivedListener;
 import com.star.demo2017111303.Data.StudentDAO;
 import com.star.demo2017111303.Data.StudentDAOFactory;
 import com.star.demo2017111303.Data.StudentDAOFileImpl;
 
-public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener {
+public class MainActivity extends AppCompatActivity implements RecyclerView.OnItemTouchListener , OnCloudReceivedListener {
     public static StudentDAO t;
     final DAOType type = DAOType.CLOUD;   //工廠模式，可切換(Memory)StudentDAOMemoryImpl()及(File)StudentDAOFileImpl()
 
@@ -103,4 +104,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnIt
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
 
     }
+
+    @Override
+    public void onReceivedEvent() {
+        mAdapter = new MyAdapter(MainActivity.this, t.getData());
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
 }

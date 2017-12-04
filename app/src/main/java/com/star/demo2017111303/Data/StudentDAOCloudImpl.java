@@ -19,18 +19,17 @@ import java.util.ArrayList;
  */
 
 public class StudentDAOCloudImpl implements StudentDAO {
-    ArrayList<Student> data;
+    ArrayList<Student> data = new ArrayList<>();
     Context context;
     FirebaseDatabase database;
     DatabaseReference myRef;
     final String TAG = "CloudImpl";
     int MaxID;
-    public StudentDAOCloudImpl(Context context)
+    public StudentDAOCloudImpl(final Context context)
     {
         this.context = context;
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("studentdata");
-        data = new ArrayList<>();
         // Read from the database
         Log.d(TAG, "In Cloud Constructor");
         myRef.addValueEventListener(new ValueEventListener() {
@@ -64,6 +63,7 @@ public class StudentDAOCloudImpl implements StudentDAO {
 
                 MaxID += 1;
                 Log.d(TAG, "Value is: " + value);
+                ((OnCloudReceivedListener) context).onReceivedEvent();
             }
 
             @Override
@@ -128,3 +128,4 @@ public class StudentDAOCloudImpl implements StudentDAO {
         return new Student[0];
     }
 }
+
